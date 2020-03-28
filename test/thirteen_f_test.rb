@@ -5,7 +5,8 @@ class ThirteenFTest < Minitest::Test
     refute_nil ::ThirteenF::VERSION
   end
 
-  def test_it_does_something_useful
-    assert false
+  def test_initializing_classes
+    search = ThirteenF::Search.new('BAUPOST GROUP LLC/MA')
+    search.get_companies
   end
 end
