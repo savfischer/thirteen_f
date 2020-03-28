@@ -10,3 +10,4 @@ class ThirteenFTest < Minitest::Test
     search.get_companies
   end
 end
+
