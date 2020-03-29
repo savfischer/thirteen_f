@@ -42,17 +42,17 @@ class ThirteenF
       true
     end
 
+    def get_filings(count: 10)
+      @filings = Filing.from_index_urls thirteen_f_urls(count: count), self
+      true
+    end
+
     def sec_filings_page_url
       "#{BASE_URL}/cgi-bin/browse-edgar?CIK=#{cik}"
     end
 
-    def thirteen_f_filings_url(count: 100)
+    def thirteen_f_filings_url(count: 10)
       "#{sec_filings_page_url}&type=13f&count=#{count}"
-    end
-
-    def get_filings(count: 100)
-      @filings = Filing.from_index_urls thirteen_f_urls(count: count), self
-      true
     end
 
     private
