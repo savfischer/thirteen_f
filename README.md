@@ -51,6 +51,10 @@ company = search.companies.first
 company.get_filings # grabs upto 100 13F filings
 company.get_most_recent_holdings
 company.most_recent_holdings # returns positions from more recent 13F filing
+
+company.cik # type: String | ex: "0001067983"
+company.name # type: String | ex: "BERKSHIRE HATHAWAY INC"
+company.state_or_country # type: String | ex: "NE"
 ```
 
 ### Filings
@@ -58,27 +62,36 @@ company.most_recent_holdings # returns positions from more recent 13F filing
 ```ruby
 company.get_filings
 filing = company.filings.first
+filing.company
 filing.get_positions
 filing.positions # returns the US public securities held by the company at the
                  # time of the period of the report
+
+filing.index_url # type: String
+filing.response_status # type: String | ex: "200 OK"
+filing.period_of_report # type: Date or nil
+filing.time_accepted # type: DateTime or nil
+filing.table_html_url # type: String or nil
+filing.table_xml_url # type: String
+filing.cover_page_html_url # String
 ```
 
 ### Positions
 
 ```ruby
-  # positions have the following attributes
   position = filing.positions.first
-  position.name_of_issuer # type: string | ex: "EBAY INC"
-  position.title_of_class # type: string | ex: "COM"
-  position.cusip # type: string | ex: "278642103"
-  position.value_in_thousands # type: integer | ex: 722018
-  position.shares_or_principal_amount # type: integer | ex: 19994970
-  position.shares_or_principle_amount_type # type: string | ex: "SH"
-  position.put_or_call # type: string or nil | ex: "PUT"
-  position.investment_discretion # type: string | ex: "DFND"
-  position.other_managers # type: string or nil | ex: "1,4,11"
-  position.voting_authority # type: hash | ex: { sole: 19994970, shared: 0, none: 0 }
   position.filing
+
+  position.name_of_issuer # type: String | ex: "EBAY INC"
+  position.title_of_class # type: String | ex: "COM"
+  position.cusip # type: String | ex: "278642103"
+  position.value_in_thousands # type: Integer | ex: 722018
+  position.shares_or_principal_amount # type: Integer | ex: 19994970
+  position.shares_or_principle_amount_type # type: String | ex: "SH"
+  position.put_or_call # type: String or nil | ex: "PUT"
+  position.investment_discretion # type: String | ex: "DFND"
+  position.other_managers # type: String or nil | ex: "1,4,11"
+  position.voting_authority # type: Hash | ex: { sole: 19994970, shared: 0, none: 0 }
 ```
 
 ## Development
