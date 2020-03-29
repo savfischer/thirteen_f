@@ -37,7 +37,8 @@ class ThirteenF
     def get_most_recent_holdings
       get_filings unless filings
       most_recent_filing = filings.select(&:period_of_report).max_by(&:period_of_report)
-      @most_recent_holdings = Position.from_xml_filing most_recent_filing
+      most_recent_filing.get_positions
+      @most_recent_holdings =  most_recent_filing.positions
       true
     end
 
@@ -50,7 +51,7 @@ class ThirteenF
     end
 
     def get_filings(count: 100)
-      @filings = Filing.from_index_urls thirteen_f_urls(count: count)
+      @filings = Filing.from_index_urls thirteen_f_urls(count: count), self
       true
     end
 

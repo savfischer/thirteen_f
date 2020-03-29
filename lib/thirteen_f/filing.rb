@@ -7,23 +7,23 @@ class ThirteenF
   class Filing
     attr_reader :index_url, :table_html_url, :table_xml_url,
       :cover_page_html_url, :cover_page_xml_url, :complete_text_file_url,
-      :period_of_report, :time_accepted, :response_status
+      :period_of_report, :time_accepted, :response_status, :company, :positions
 
     BASE_URL = 'https://www.sec.gov'
 
-    def self.from_index_urls(urls)
+    def self.from_index_urls(urls, company)
       redo_count = 0
       urls.map do |index_url|
         response = HTTP.get index_url
         sleep 0.33
         if response.status == 200
           redo_count = 0
-          attributes = set_attributes(response, index_url)
+          attributes = set_attributes(response, index_url, company)
           new(**attributes)
         else
           redo_count += 1
           redo unless redo_count > 1
-          attributes = bad_response_attributes(response, index_url)
+          attributes = bad_response_attributes(response, index_url, company)
           new(**attributes)
         end
       end
@@ -42,10 +42,11 @@ class ThirteenF
       end
     end
 
-    def initialize(response_status:, index_url:, complete_text_file_url:,
-                   period_of_report:, time_accepted:, table_html_url: nil,
-                   table_xml_url: nil, cover_page_html_url: nil,
-                   cover_page_xml_url: nil)
+    def initialize(response_status:, index_url:, company:,
+                   complete_text_file_url:, period_of_report:, time_accepted:,
+                   table_html_url: nil, table_xml_url: nil,
+                   cover_page_html_url: nil, cover_page_xml_url: nil)
+      @company = company
       @response_status = response_status
       @index_url = index_url
       @table_html_url = table_html_url
@@ -58,11 +59,18 @@ class ThirteenF
       true
     end
 
+    def get_positions
+      return false unless period_of_report
+      @positions = Position.from_xml_filing self
+      true
+    end
+
     private
-      def self.set_attributes(response, index_url)
+      def self.set_attributes(response, index_url, company)
         page = Nokogiri::HTML response.to_s
         table_links = page.search('table.tableFile')[0].search('a')
         attributes = Hash.new
+        attributes[:company] = company
         attributes[:response_status] = response.status.to_s
         attributes[:index_url] = index_url
         attributes[:period_of_report] = get_period_of_report page
@@ -98,8 +106,9 @@ class ThirteenF
         attributes
       end
 
-      def self.bad_response_attributes(response, index_url)
+      def self.bad_response_attributes(response, index_url, company)
         attributes = Hash.new
+        attributes[:company] = company
         attributes[:response_status] = response.status.to_s
         attributes[:index_url] = index_url
         attributes[:period_of_report] = nil
@@ -108,12 +117,12 @@ class ThirteenF
         attributes
       end
 
-      def assign_attributes(response_status:, index_url:, complete_text_file_url:,
-                    period_of_report:, time_accepted:, table_html_url: nil,
-                    table_xml_url: nil, cover_page_html_url: nil,
-                    cover_page_xml_url: nil)
+      def assign_attributes(response_status:, index_url:, company:,
+                            complete_text_file_url:, period_of_report:,
+                            time_accepted:, table_html_url: nil, table_xml_url:
+                            nil, cover_page_html_url: nil,
+                            cover_page_xml_url: nil)
         @response_status = response_status
-        @index_url = index_url
         @table_html_url = table_html_url
         @table_xml_url = table_xml_url
         @cover_page_html_url = cover_page_html_url

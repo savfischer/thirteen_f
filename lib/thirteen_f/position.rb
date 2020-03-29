@@ -9,7 +9,7 @@ class ThirteenF
       :investment_discretion, :other_managers, :voting_authority, :filing
 
     def self.from_xml_filing(filing)
-      return unless filing.table_xml_url
+      return nil unless filing.table_xml_url
       response = HTTP.get filing.table_xml_url
       xml_doc = Nokogiri::XML response.to_s
       xml_doc.search('infoTable').map do |info_table|
@@ -27,9 +27,9 @@ class ThirteenF
       @name_of_issuer = info_table.search('nameOfIssuer').text
       @title_of_class = info_table.search('titleOfClass').text
       @cusip = info_table.search('cusip').text
-      @value_in_thousands = info_table.search('value').text
+      @value_in_thousands = to_integer(info_table.search('value').text)
       @shares_or_principal_amount_type = info_table.search('sshPrnamtType').text
-      @shares_or_principal_amount = info_table.search('sshPrnamt').text
+      @shares_or_principal_amount = to_integer(info_table.search('sshPrnamt').text)
 
       not_found = info_table.search('putCall').count == 0
       @put_or_call = info_table.search('putCall').text unless not_found
@@ -37,11 +37,16 @@ class ThirteenF
       @investment_discretion = info_table.search('investmentDiscretion').text
       @other_managers = info_table.search('otherManager').text
       @voting_authority = {
-        sole: info_table.search('Sole').text,
-        shared: info_table.search('Shared').text,
-        none: info_table.search('None').text
+        sole: to_integer(info_table.search('Sole').text),
+        shared: to_integer(info_table.search('Shared').text),
+        none: to_integer(info_table.search('None').text)
       }
     end
+
+    private
+      def to_integer(text)
+        text.delete(',').to_i
+      end
   end
 end
 

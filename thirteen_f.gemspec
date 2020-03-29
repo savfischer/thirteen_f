@@ -6,13 +6,13 @@ Gem::Specification.new do |spec|
   spec.authors       = ["fordfischer"]
   spec.email         = ["fordfischer07@gmail.com"]
 
-  spec.summary       = %q{A ruby interface for S.E.C. 13-F Data.}
+  spec.summary       = %q{A ruby interface for S.E.C. 13F Data.}
 
-  spec.description   = %q{thirteen_f lets you easily interact with SEC 13-F
-  filing data in all the ways we think normal human beings might want to. The
-  SEC is the U.S. Securities and Exchange Commission. 13-F filings are
-  disclosures large institutional investors in public securites have to provide
-  and make public every quarter.}
+  spec.description   = %q{thirteen_f lets you easily search and retrieve SEC 13F
+  filing data. The SEC is the U.S. Securities and Exchange Commission. 13F
+  filings are disclosures large institutional investors in public securites have
+  to provide and make public every quarter. It is a great way to follow what
+  different investors have been doing.}
   spec.homepage      = "https://github.com/fordfischer/thirteen_f"
   spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.5.0")

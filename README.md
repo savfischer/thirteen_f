@@ -1,6 +1,6 @@
 # ThirteenF
 
-A ruby interface for S.E.C. 13-F Data. There is a lot of great finance and
+A ruby interface for S.E.C. 13F Data. There is a lot of great finance and
 investing data that is available for free, but few developer tools that let
 us interact with the data outside of commercial platforms. This library
 aims to remedy a small piece of this by providing a robust API to search and
@@ -11,6 +11,11 @@ Reports. What is a 13F Report? Please visit
 
 This library is meant to serve a lightweight API which developers can enhance
 via a persistence layer and/or UI in their own applications.
+
+At this time, I am sure there are a number of edge cases the gem does
+not handle. Also it only imports 13F's submitted as XML files, which only goes
+back to 2013. It is a low priority for myself to robustly parse the text files
+provided before this time.
 
 ## Installation
 
@@ -30,7 +35,51 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Search
+
+```ruby
+search = ThirteenF::Search.new('Berkshire Hathaway')
+search = ThirteenF::Search.new('BERKSHIRE HATHAWAY INC')
+search.get_companies
+search.companies
+```
+
+### Companies
+
+```ruby
+company = search.companies.first
+company.get_filings # grabs upto 100 13F filings
+company.get_most_recent_holdings
+company.most_recent_holdings # returns positions from more recent 13F filing
+```
+
+### Filings
+
+```ruby
+company.get_filings
+filing = company.filings.first
+filing.get_positions
+filing.positions # returns the US public securities held by the company at the
+                 # time of the period of the report
+```
+
+### Positions
+
+```ruby
+  # positions have the following attributes
+  position = filing.positions.first
+  position.name_of_issuer # type: string | ex: "EBAY INC"
+  position.title_of_class # type: string | ex: "COM"
+  position.cusip # type: string | ex: "278642103"
+  position.value_in_thousands # type: integer | ex: 722018
+  position.shares_or_principal_amount # type: integer | ex: 19994970
+  position.shares_or_principle_amount_type # type: string | ex: "SH"
+  position.put_or_call # type: string or nil | ex: "PUT"
+  position.investment_discretion # type: string | ex: "DFND"
+  position.other_managers # type: string or nil | ex: "1,4,11"
+  position.voting_authority # type: hash | ex: { sole: 19994970, shared: 0, none: 0 }
+  position.filing
+```
 
 ## Development
 
