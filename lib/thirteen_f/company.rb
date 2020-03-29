@@ -4,7 +4,7 @@ require 'http'
 
 class ThirteenF
   class Company
-    attr_reader :cik, :name, :state_or_country, :filings
+    attr_reader :cik, :name, :state_or_country, :filings, :most_recent_holdings
 
     BASE_URL = 'https://www.sec.gov'
 
@@ -31,6 +31,13 @@ class ThirteenF
       @cik = cik
       @name = name
       @state_or_country = state_or_country
+      true
+    end
+
+    def get_most_recent_holdings
+      get_filings unless filings
+      most_recent_filing = filings.select(&:period_of_report).max_by(&:period_of_report)
+      @most_recent_holdings = Position.from_xml_filing most_recent_filing
       true
     end
 
