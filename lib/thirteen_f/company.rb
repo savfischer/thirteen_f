@@ -4,7 +4,7 @@ require 'http'
 
 class ThirteenF
   class Company
-    attr_reader :cik, :name, :state_or_country
+    attr_reader :cik, :name, :state_or_country, :filings
 
     BASE_URL = 'https://www.sec.gov'
 
@@ -42,18 +42,22 @@ class ThirteenF
       "#{sec_filings_page_url}&type=13f&count=#{count}"
     end
 
-    def get_links_to_filings
-      response = HTTP.get thirteen_f_filings_url
-      page = Nokogiri::HTML response.to_s
-      # compare these two - documents_button would be more direct
-      rows = page.search('table/tableFile2 > tr')[1..-1]
-      btns = page.search('#documentsbutton')
-      p [rows.count, btns.count]
+    def get_filings(count: 100)
+      @filings = Filing.from_index_urls thirteen_f_urls(count: count)
+      true
     end
 
     private
       def self.parse_name(name_cell)
         name_cell.text.split("\n").first
+      end
+
+      def thirteen_f_urls(count: 100)
+        response = HTTP.get thirteen_f_filings_url(count: count)
+        page = Nokogiri::HTML response.to_s
+        page.search('#documentsbutton').map do |btn|
+          "#{BASE_URL + btn.attributes['href'].value}"
+        end
       end
   end
 end

@@ -8,6 +8,8 @@ class ThirteenFTest < Minitest::Test
   def test_initializing_classes
     search = ThirteenF::Search.new('BAUPOST GROUP LLC/MA')
     search.get_companies
+    company = search.companies.first
+    company.get_filings(count: 3)
   end
 end
 

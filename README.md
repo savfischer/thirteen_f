@@ -1,8 +1,16 @@
 # ThirteenF
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/thirteen_f`. To experiment with that code, run `bin/console` for an interactive prompt.
+A ruby interface for S.E.C. 13-F Data. There is a lot of great finance and
+investing data that is available for free, but few developer tools that let
+us interact with the data outside of commercial platforms. This library
+aims to remedy a small piece of this by providing a robust API to search and
+retrieve investment holdings data of institutional investors through 13F
+Reports. What is a 13F Report? Please visit
+[this S.E.C. webpage](https://www.sec.gov/fast-answers/answers-form13fhtm.html)
+ for a full description.
 
-TODO: Delete this and the text above, and describe your gem
+This library is meant to serve a lightweight API which developers can enhance
+via a persistence layer in their own applications.
 
 ## Installation
 

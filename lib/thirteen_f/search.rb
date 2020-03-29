@@ -25,7 +25,7 @@ class ThirteenF
       else
         raise 'SEC results are not available right now'
       end
-
+      true
     end
 
     private
