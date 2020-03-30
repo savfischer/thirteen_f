@@ -31,7 +31,7 @@ class ThirteenF
       response = HTTP.get sec_url_from_cik(cik)
       return false unless response.status == 200
       page = Nokogiri::HTML response.to_s
-      from_company_page page
+      from_company_page(page).first
     end
 
     def initialize(cik, name, state_or_country)
@@ -43,10 +43,13 @@ class ThirteenF
 
     def get_most_recent_holdings
       get_filings unless filings
-      most_recent_filing = filings.select(&:period_of_report).max_by(&:period_of_report)
       most_recent_filing.get_positions
       @most_recent_holdings =  most_recent_filing.positions
       true
+    end
+
+    def most_recent_filing
+      filings.select(&:period_of_report).max_by(&:period_of_report)
     end
 
     def get_filings(count: 10)
