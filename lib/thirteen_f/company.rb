@@ -27,6 +27,13 @@ class ThirteenF
       Array.new 1, new(cik, name, state_or_country)
     end
 
+    def self.from_cik(cik)
+      response = HTTP.get sec_url_from_cik(cik)
+      return false unless response.status == 200
+      page = Nokogiri::HTML response.to_s
+      from_company_page page
+    end
+
     def initialize(cik, name, state_or_country)
       @cik = cik
       @name = name
@@ -53,6 +60,10 @@ class ThirteenF
 
     def thirteen_f_filings_url(count: 10)
       "#{sec_filings_page_url}&type=13f&count=#{count}"
+    end
+
+    def self.sec_url_from_cik(cik)
+      "#{BASE_URL}/cgi-bin/browse-edgar?CIK=#{cik}"
     end
 
     private

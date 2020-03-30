@@ -13,13 +13,23 @@ class ThirteenF
       response = HTTP.get filing.table_xml_url
       xml_doc = Nokogiri::XML response.to_s
       xml_doc.search('infoTable').map do |info_table|
-        position = new filing
+        position = new filing: filing
         position.attributes_from_info_table(info_table)
         position
       end
     end
 
-    def initialize(filing)
+    def self.from_xml_url(table_xml_url)
+      response = HTTP.get table_xml_url
+      xml_doc = Nokogiri::XML response.to_s
+      xml_doc.search('infoTable').map do |info_table|
+        position = new
+        position.attributes_from_info_table(info_table)
+        position
+      end
+    end
+
+    def initialize(filing: nil)
       @filing = filing
     end
 

@@ -39,7 +39,6 @@ Or install it yourself as:
 
 ```ruby
 search = ThirteenF::Search.new('Berkshire Hathaway')
-search = ThirteenF::Search.new('BERKSHIRE HATHAWAY INC')
 search.get_companies
 search.companies
 ```
@@ -51,7 +50,7 @@ company = search.companies.first
 company.get_filings # grabs 10 13F filings by default which is the minimum
 company.get_filings(count: 20) # can supply an optional count keyword arg to get more filings
 company.get_most_recent_holdings
-company.most_recent_holdings # returns positions from more recent 13F filing
+company.most_recent_holdings # returns positions from the most recent 13F filing
 
 company.cik # type: String | ex: "0001067983"
 company.name # type: String | ex: "BERKSHIRE HATHAWAY INC"
@@ -80,6 +79,9 @@ filing.cover_page_html_url # String or nil
 ### Positions
 
 ```ruby
+xml_url = 'https://www.sec.gov/Archives/edgar/data/1061768/000156761920003359/form13fInfoTable.xml'
+positions = Position.from_xml_url(xml_url)
+
 position = filing.positions.first
 position.filing
 

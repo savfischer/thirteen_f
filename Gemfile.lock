@@ -1,15 +1,18 @@
 PATH
   remote: .
   specs:
-    thirteen_f (0.1.0)
+    thirteen_f (0.2.1)
       http (>= 4.4)
       nokogiri
+      pdf-reader
 
 GEM
   remote: https://rubygems.org/
   specs:
+    Ascii85 (1.0.3)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    afm (0.2.2)
     coderay (1.1.2)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
@@ -17,7 +20,8 @@ GEM
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
-    http (4.4.0)
+    hashery (2.1.2)
+    http (4.4.1)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
       http-form_data (~> 2.2)
@@ -32,14 +36,22 @@ GEM
     minitest (5.14.0)
     nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
+    pdf-reader (2.4.0)
+      Ascii85 (~> 1.0.0)
+      afm (~> 0.2.1)
+      hashery (~> 2.0)
+      ruby-rc4
+      ttfunk
     pry (0.13.0)
       coderay (~> 1.1)
       method_source (~> 1.0)
     public_suffix (4.0.3)
     rake (12.3.3)
+    ruby-rc4 (0.1.5)
+    ttfunk (1.6.2.1)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.7.6)
+    unf_ext (0.0.7.7)
 
 PLATFORMS
   ruby
