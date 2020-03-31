@@ -47,7 +47,7 @@ search.companies
 
 ```ruby
 cik_number = '0001061768'
-company = Company.from_cik cik_number
+company = ThirteenF::Company.from_cik cik_number
 
 company = search.companies.first
 company.get_filings # grabs 10 13F filings by default which is the minimum
@@ -84,7 +84,7 @@ filing.cover_page_html_url # String or nil
 
 ```ruby
 xml_url = 'https://www.sec.gov/Archives/edgar/data/1061768/000156761920003359/form13fInfoTable.xml'
-positions = Position.from_xml_url(xml_url)
+positions = ThirteenF::Position.from_xml_url(xml_url)
 
 position = filing.positions.first
 position.filing
