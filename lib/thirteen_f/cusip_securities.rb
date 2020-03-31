@@ -48,10 +48,11 @@ class ThirteenF
       reader.pages[2..-1].each do |page|
         lines = page.text.split("\n").reject(&:empty?)[3..-1]
         line_arrs = lines.map do |line|
-          next nil if line.include?('Total Count')
-          line.split('   ').reject(&:empty?).map(&:strip).reject { |text| text == '*' }
+          next nil if line.include?('Total Coun')
+          line.split(/\s{3}|( \* )/).reject(&:empty?).map(&:strip).reject { |text| text == '*' }
         end
         line_arrs.compact.each do |line_arr|
+          next unless line_arr.count > 1
           valid_entries.push ListEntry.new(line_arr)
         end
       end
