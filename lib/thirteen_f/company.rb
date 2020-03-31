@@ -69,17 +69,17 @@ class ThirteenF
       "#{BASE_URL}/cgi-bin/browse-edgar?CIK=#{cik}"
     end
 
+    def thirteen_f_urls(count: 100)
+      response = HTTP.get thirteen_f_filings_url(count: count)
+      page = Nokogiri::HTML response.to_s
+      page.search('#documentsbutton').map do |btn|
+        "#{BASE_URL + btn.attributes['href'].value}"
+      end
+    end
+
     private
       def self.parse_name(name_cell)
         name_cell.text.split("\n").first
-      end
-
-      def thirteen_f_urls(count: 100)
-        response = HTTP.get thirteen_f_filings_url(count: count)
-        page = Nokogiri::HTML response.to_s
-        page.search('#documentsbutton').map do |btn|
-          "#{BASE_URL + btn.attributes['href'].value}"
-        end
       end
   end
 end
