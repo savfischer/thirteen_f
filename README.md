@@ -46,9 +46,13 @@ search.companies
 ### Companies
 
 ```ruby
+cik_number = '0001061768'
+company = Company.from_cik cik_number
+
 company = search.companies.first
 company.get_filings # grabs 10 13F filings by default which is the minimum
 company.get_filings(count: 20) # can supply an optional count keyword arg to get more filings
+company.most_recent_filing
 company.get_most_recent_holdings
 company.most_recent_holdings # returns positions from the most recent 13F filing
 

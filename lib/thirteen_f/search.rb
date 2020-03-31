@@ -2,7 +2,6 @@
 
 require 'http'
 require 'nokogiri'
-require 'pry'
 
 class ThirteenF
   class Search
