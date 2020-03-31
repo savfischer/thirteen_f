@@ -69,12 +69,13 @@ class ThirteenF
       "#{BASE_URL}/cgi-bin/browse-edgar?CIK=#{cik}"
     end
 
-    def thirteen_f_urls(count: 100)
+    def thirteen_f_urls(count: 10)
       response = HTTP.get thirteen_f_filings_url(count: count)
       page = Nokogiri::HTML response.to_s
       page.search('#documentsbutton').map do |btn|
+        next nil unless btn.parent.previous.previous.text.include?('13F-HR')
         "#{BASE_URL + btn.attributes['href'].value}"
-      end
+      end.compact
     end
 
     private
