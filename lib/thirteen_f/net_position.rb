@@ -38,6 +38,7 @@ class ThirteenF
       @name_of_issuer = name_of_issuer
       @title_of_class = title_of_class
       @value_in_thousands = value_in_thousands
+      @put_or_call = put_or_call
       @shares_or_principal_amount = shares_or_principal_amount
       @shares_or_principal_amount_type = shares_or_principal_amount_type
       @voting_authority = voting_authority
