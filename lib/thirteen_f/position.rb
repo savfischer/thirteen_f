@@ -10,20 +10,15 @@ class ThirteenF
 
     def self.from_xml_filing(filing)
       return nil unless filing.table_xml_url
-      response = HTTP.get filing.table_xml_url
-      xml_doc = Nokogiri::XML response.to_s
-      xml_doc.search('infoTable').map do |info_table|
-        position = new filing: filing
-        position.attributes_from_info_table(info_table)
-        position
-      end
+      from_xml_url(filing.table_xml_url, filing: filing)
     end
 
-    def self.from_xml_url(table_xml_url)
+    def self.from_xml_url(table_xml_url, filing: nil)
       response = HTTP.get table_xml_url
       xml_doc = Nokogiri::XML response.to_s
-      xml_doc.search('infoTable').map do |info_table|
-        position = new
+      xml_doc.remove_namespaces!
+      xml_doc.search("//infoTable").map do |info_table|
+        position = new filing: filing
         position.attributes_from_info_table(info_table)
         position
       end
