@@ -3,8 +3,8 @@ require_relative 'lib/thirteen_f/version'
 Gem::Specification.new do |spec|
   spec.name          = "thirteen_f"
   spec.version       = ThirteenF::VERSION
-  spec.authors       = ["fordfischer"]
-  spec.email         = ["fordfischer07@gmail.com"]
+  spec.authors       = ["savfischer"]
+  spec.email         = ["savannah.fischer@hey.com"]
 
   spec.summary       = %q{A ruby interface for S.E.C. 13F Data.}
 
@@ -13,13 +13,13 @@ Gem::Specification.new do |spec|
   filings are disclosures large institutional investors in public securites have
   to provide and make public every quarter. It is a great way to follow what
   different investors have been doing.}
-  spec.homepage      = "https://github.com/fordfischer/thirteen_f"
+  spec.homepage      = "https://github.com/savfischer/thirteen_f"
   spec.license       = "MIT"
-  spec.required_ruby_version = Gem::Requirement.new(">= 2.5.0")
+  spec.required_ruby_version = Gem::Requirement.new(">= 2.6.0")
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://github.com/fordfischer/thirteen_f"
-  spec.metadata["changelog_uri"] = "https://github.com/fordfischer/thirteen_f/commits/master"
+  spec.metadata["source_code_uri"] = "https://github.com/savfischer/thirteen_f"
+  spec.metadata["changelog_uri"] = "https://github.com/savfischer/thirteen_f/commits/master"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
@@ -32,7 +32,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "minitest"
   spec.add_development_dependency "pry"
-  spec.add_dependency "http", ">= 4.4"
+  spec.add_dependency "http", ">= 5"
   spec.add_dependency "nokogiri"
   spec.add_dependency "pdf-reader"
 end

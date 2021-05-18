@@ -116,10 +116,10 @@ git commits and tags, and push the `.gem` file to
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at
-https://github.com/fordfischer/thirteen_f. This project is intended to be a safe,
+https://github.com/savfischer/thirteen_f. This project is intended to be a safe,
 welcoming space for collaboration, and contributors are expected to adhere to
 the [code of
-conduct](https://github.com/fordfischer/thirteen_f/blob/master/CODE_OF_CONDUCT.md).
+conduct](https://github.com/savfischer/thirteen_f/blob/master/CODE_OF_CONDUCT.md).
 
 
 ## License
@@ -131,4 +131,4 @@ License](https://opensource.org/licenses/MIT).
 
 Everyone interacting in the ThirteenF project's codebases, issue trackers, chat
 rooms and mailing lists is expected to follow the [code of
-conduct](https://github.com/fordfischer/thirteen_f/blob/master/CODE_OF_CONDUCT.md).
+conduct](https://github.com/savfischer/thirteen_f/blob/master/CODE_OF_CONDUCT.md).
