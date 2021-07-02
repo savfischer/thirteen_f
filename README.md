@@ -39,19 +39,19 @@ Or install it yourself as:
 
 ```ruby
 search = ThirteenF::Search.new('Berkshire Hathaway')
-search.get_entities
-search.entities
+search.get_results
+
+result = search.results.first
+result.get_entity
+entity = result.entity
 ```
 
-### Companies
+### Entities
 
 ```ruby
 cik_number = '0001061768'
 entity = ThirteenF::Entity.from_cik cik_number
 
-entity = search.entities.first
-entity.get_filings # grabs 10 13F filings by default which is the minimum
-entity.get_filings(count: 20) # can supply an optional count keyword arg to get more filings
 entity.most_recent_filing
 entity.get_most_recent_holdings
 entity.most_recent_holdings # returns positions from the most recent 13F filing
@@ -64,7 +64,6 @@ entity.state_or_country # type: String | ex: "NE"
 ### Filings
 
 ```ruby
-entity.get_filings
 filing = entity.filings.first
 filing.entity
 filing.get_positions
@@ -72,7 +71,6 @@ filing.positions # returns the US public securities held by the entity at the
                  # time of the period of the report
 
 filing.index_url # type: String
-filing.response_status # type: String | ex: "200 OK"
 filing.period_of_report # type: Date or nil
 filing.time_accepted # type: DateTime or nil
 filing.table_html_url # type: String or nil
