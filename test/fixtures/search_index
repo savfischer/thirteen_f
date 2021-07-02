@@ -1,0 +1,187 @@
+{
+  "took": 1,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 109,
+      "relation": "eq"
+    },
+    "max_score": 25.046738,
+    "hits": [
+      {
+        "_index": "edgar_entity_20210702_040313",
+        "_type": "_doc",
+        "_id": "1067983",
+        "_score": 25.046738,
+        "_source": {
+          "entity": "BERKSHIRE HATHAWAY INC (BRK-B, BRK-A)",
+          "entity_words": "BERKSHIRE HATHAWAY INC (BRK-B, BRK-A)",
+          "tickers": "BRK-B, BRK-A",
+          "rank": 60086597
+        }
+      },
+      {
+        "_index": "edgar_entity_20210702_040313",
+        "_type": "_doc",
+        "_id": "1108134",
+        "_score": 25.046738,
+        "_source": {
+          "entity": "BERKSHIRE HILLS BANCORP INC (BHLB)",
+          "entity_words": "BERKSHIRE HILLS BANCORP INC (BHLB)",
+          "tickers": "BHLB",
+          "rank": 60485434
+        }
+      },
+      {
+        "_index": "edgar_entity_20210702_040313",
+        "_type": "_doc",
+        "_id": "1831984",
+        "_score": 20.462996,
+        "_source": {
+          "entity": "Berkshire Bank",
+          "entity_words": "Berkshire Bank",
+          "rank": 41104
+        }
+      },
+      {
+        "_index": "edgar_entity_20210702_040313",
+        "_type": "_doc",
+        "_id": "1030979",
+        "_score": 19.983442,
+        "_source": {
+          "entity": "BERKSHIRE FUNDS",
+          "entity_words": "BERKSHIRE FUNDS",
+          "rank": 6710116
+        }
+      },
+      {
+        "_index": "edgar_entity_20210702_040313",
+        "_type": "_doc",
+        "_id": "1293475",
+        "_score": 19.983442,
+        "_source": {
+          "entity": "ET Berkshire, L.L.C.",
+          "entity_words": "ET Berkshire, L.L.C.",
+          "rank": 4479011
+        }
+      },
+      {
+        "_index": "edgar_entity_20210702_040313",
+        "_type": "_doc",
+        "_id": "1188729",
+        "_score": 19.983442,
+        "_source": {
+          "entity": "BERKSHIRE ALAN G",
+          "entity_words": "BERKSHIRE ALAN G",
+          "rank": 12976
+        }
+      },
+      {
+        "_index": "edgar_entity_20210702_040313",
+        "_type": "_doc",
+        "_id": "1582711",
+        "_score": 19.983442,
+        "_source": {
+          "entity": "PC Berkshire, LLC",
+          "entity_words": "PC Berkshire, LLC",
+          "rank": 532
+        }
+      },
+      {
+        "_index": "edgar_entity_20210702_040313",
+        "_type": "_doc",
+        "_id": "1364966",
+        "_score": 19.52585,
+        "_source": {
+          "entity": "BERKSHIRE 40L LLP",
+          "entity_words": "BERKSHIRE 40L LLP",
+          "rank": 10
+        }
+      },
+      {
+        "_index": "edgar_entity_20210702_040313",
+        "_type": "_doc",
+        "_id": "1395216",
+        "_score": 19.52585,
+        "_source": {
+          "entity": "BERKSHIRE OSC LLC",
+          "entity_words": "BERKSHIRE OSC LLC",
+          "rank": 10
+        }
+      },
+      {
+        "_index": "edgar_entity_20210702_040313",
+        "_type": "_doc",
+        "_id": "1494036",
+        "_score": 19.52585,
+        "_source": {
+          "entity": "Berkshire DHC LLC",
+          "entity_words": "Berkshire DHC LLC",
+          "rank": 741
+        }
+      }
+    ]
+  },
+  "query": {
+    "query": {
+      "bool": {
+        "should": [
+          {
+            "match": {
+              "entity": {
+                "query": "Berkshire",
+                "operator": "and"
+              }
+            }
+          },
+          {
+            "match": {
+              "tickers": {
+                "query": "Berkshire",
+                "operator": "and",
+                "boost": 100
+              }
+            }
+          },
+          {
+            "exists": {
+              "field": "tickers",
+              "boost": 10
+            }
+          }
+        ],
+        "must": [
+          {
+            "bool": {
+              "should": [
+                {
+                  "match": {
+                    "entity": {
+                      "query": "Berkshire",
+                      "operator": "and"
+                    }
+                  }
+                },
+                {
+                  "match": {
+                    "_id": {
+                      "query": "Berkshire"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "from": 0,
+    "size": 10
+  }
+}
