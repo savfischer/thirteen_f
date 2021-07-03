@@ -39,40 +39,38 @@ Or install it yourself as:
 
 ```ruby
 search = ThirteenF::Search.new('Berkshire Hathaway')
-search.get_companies
-search.companies
+search.get_results
+
+result = search.results.first
+result.get_entity
+entity = result.entity
 ```
 
-### Companies
+### Entities
 
 ```ruby
 cik_number = '0001061768'
-company = ThirteenF::Company.from_cik cik_number
+entity = ThirteenF::Entity.from_cik cik_number
 
-company = search.companies.first
-company.get_filings # grabs 10 13F filings by default which is the minimum
-company.get_filings(count: 20) # can supply an optional count keyword arg to get more filings
-company.most_recent_filing
-company.get_most_recent_holdings
-company.most_recent_holdings # returns positions from the most recent 13F filing
+entity.most_recent_filing
+entity.get_most_recent_positions
+entity.most_recent_positions # returns positions from the most recent 13F filing
 
-company.cik # type: String | ex: "0001067983"
-company.name # type: String | ex: "BERKSHIRE HATHAWAY INC"
-company.state_or_country # type: String | ex: "NE"
+entity.cik # type: String | ex: "0001067983"
+entity.name # type: String | ex: "BERKSHIRE HATHAWAY INC"
+entity.state_or_country # type: String | ex: "NE"
 ```
 
 ### Filings
 
 ```ruby
-company.get_filings
-filing = company.filings.first
-filing.company
+filing = entity.filings.first
+filing.entity
 filing.get_positions
-filing.positions # returns the US public securities held by the company at the
+filing.positions # returns the US public securities held by the entity at the
                  # time of the period of the report
 
 filing.index_url # type: String
-filing.response_status # type: String | ex: "200 OK"
 filing.period_of_report # type: Date or nil
 filing.time_accepted # type: DateTime or nil
 filing.table_html_url # type: String or nil
@@ -99,6 +97,15 @@ position.put_or_call # type: String or nil | ex: "PUT"
 position.investment_discretion # type: String | ex: "DFND"
 position.other_managers # type: String or nil | ex: "1,4,11"
 position.voting_authority # type: Hash | ex: { sole: 19994970, shared: 0, none: 0 }
+```
+
+### Net Securities
+```ruby
+```
+
+### CUSIP Securities
+
+```ruby
 ```
 
 ## Development

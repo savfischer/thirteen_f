@@ -3,7 +3,7 @@ require_relative 'lib/thirteen_f/version'
 Gem::Specification.new do |spec|
   spec.name          = "thirteen_f"
   spec.version       = ThirteenF::VERSION
-  spec.authors       = ["savfischer"]
+  spec.authors       = ["Savannah Fischer"]
   spec.email         = ["savannah.fischer@hey.com"]
 
   spec.summary       = %q{A ruby interface for S.E.C. 13F Data.}
@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   filing data. The SEC is the U.S. Securities and Exchange Commission. 13F
   filings are disclosures large institutional investors in public securites have
   to provide and make public every quarter. It is a great way to follow what
-  different investors have been doing.}
+  different investors have been doing in US regulated equity markets.}
   spec.homepage      = "https://github.com/savfischer/thirteen_f"
   spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.6.0")
@@ -32,7 +32,8 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "minitest"
   spec.add_development_dependency "pry"
-  spec.add_dependency "http", ">= 5"
-  spec.add_dependency "nokogiri"
-  spec.add_dependency "pdf-reader"
+
+  spec.add_runtime_dependency "http", ">= 5.0"
+  spec.add_runtime_dependency "nokogiri", ">= 1.10"
+  spec.add_runtime_dependency "pdf-reader", ">= 2.2"
 end
