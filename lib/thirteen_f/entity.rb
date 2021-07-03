@@ -45,27 +45,6 @@ class ThirteenF
       filings.select(&:period_of_report).max_by(&:period_of_report)
     end
 
-    def sec_filings_page_url
-      "#{BASE_URL}/cgi-bin/browse-edgar?CIK=#{cik}"
-    end
-
-    def thirteen_f_filings_url(count: 10)
-      "#{sec_filings_page_url}&type=13f&count=#{count}"
-    end
-
-    def self.sec_url_from_cik(cik)
-      "#{BASE_URL}/cgi-bin/browse-edgar?CIK=#{cik}"
-    end
-
-    def thirteen_f_urls(count: 10)
-      response = HTTP.get thirteen_f_filings_url(count: count)
-      page = Nokogiri::HTML response.to_s
-      page.search('#documentsbutton').map do |btn|
-        next nil unless btn.parent.previous.previous.text.include?('13F-HR')
-        "#{BASE_URL + btn.attributes['href'].value}"
-      end.compact
-    end
-
     private
       def cik_from_id(id)
         id.prepend('0') until id.length >= 10

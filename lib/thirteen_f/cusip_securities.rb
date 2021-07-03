@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'http'
 require 'date'
 require 'open-uri'
 require 'pdf-reader'
@@ -12,9 +11,7 @@ class ThirteenF
 
     def self.all_file_locations
       index_url = "#{BASE_URL}/divisions/investment/13flists.htm"
-      response = HTTP.get index_url
-      return false unless response.status == 200
-      page = Nokogiri::HTML response.to_s
+      page = SecRequest.get index_url, response_type: :html
       a_tags = page.search('a').select do |a_tag|
         href = a_tag.attributes['href']&.value.to_s
         href.include?('13flist') && href.include?('.pdf')
@@ -24,9 +21,7 @@ class ThirteenF
 
     def self.most_recent_list
       index_url = "#{BASE_URL}/divisions/investment/13flists.htm"
-      response = HTTP.get index_url
-      return false unless response.status == 200
-      page = Nokogiri::HTML response.to_s
+      page = SecRequest.get index_url, response_type: :html
       a_tag = page.search('a').find { |a| a.text.include?('Current List') }
       file_location = "#{BASE_URL + a_tag.attributes['href'].value}"
       new file_location

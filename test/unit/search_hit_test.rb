@@ -15,10 +15,15 @@ class SearchHitTest < MiniTest::Test
     assert @search_hit.name == 'BERKSHIRE HATHAWAY INC (BRK-B, BRK-A)'
   end
 
-  def test_entity_is_entity
+  def test_entity
     @search_hit.get_entity
     entity = @search_hit.entity
     assert entity.is_a?(ThirteenF::Entity)
+  end
+
+  def test_sec_page_url
+    url = 'https://www.sec.gov/edgar/browse/?CIK=0001067983&owner=exclude'
+    assert_equal @search_hit.sec_page_url, url
   end
 end
 
