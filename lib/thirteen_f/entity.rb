@@ -14,9 +14,7 @@ class ThirteenF
 
     def self.from_cik(cik)
       entity_url = "https://data.sec.gov/submissions/CIK#{cik}.json"
-      response = SecRequest.get entity_url
-      return false unless response.status == 200
-      new JSON.parse(response.to_s, symbolize_names: true)
+      new SecRequest.get entity_url
     end
 
     def initialize(sec_entity)

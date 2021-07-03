@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'http'
-
 class ThirteenF
   class Position
     attr_reader :name_of_issuer, :title_of_class, :cusip, :value_in_thousands,
@@ -14,9 +12,7 @@ class ThirteenF
     end
 
     def self.from_xml_url(table_xml_url, filing: nil)
-      response = HTTP.get table_xml_url
-      xml_doc = Nokogiri::XML response.to_s
-      xml_doc.remove_namespaces!
+      xml_doc = SecRequest.get table_xml_url, response_type: :xml
       xml_doc.search("//infoTable").map do |info_table|
         position = new filing: filing
         position.attributes_from_info_table(info_table)

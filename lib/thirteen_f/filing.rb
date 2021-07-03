@@ -1,22 +1,21 @@
 # frozen_string_literal: true
 
-require 'http'
 require 'date'
 
 class ThirteenF
   class Filing
-    attr_reader :entity, :index_url, :report_period, :time_accepted,
+    attr_reader :entity, :index_url, :report_date, :time_accepted,
       :table_html_url, :table_xml_url,
       :cover_page_html_url, :cover_page_xml_url, :complete_text_file_url,
       :positions
 
-    alias period_of_report report_period
+    alias period_of_report report_date
 
     BASE_URL = 'https://www.sec.gov'
 
     def set_attributes_from_index_url
       return unless index_url
-      response = SecRequest.get index_url, html: true
+      response = SecRequest.get index_url, response_type: :html
       assign_attributes  **set_attributes(response)
     end
 

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'thirteen_f/sec_request'
 require "thirteen_f/entity"
 require "thirteen_f/search"
 require "thirteen_f/search_hit"

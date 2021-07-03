@@ -9,9 +9,9 @@ class ThirteenF
       'Accept' => '*/*'
     }
 
-    def self.get(url, html: false)
+    def self.get(url, response_type: :json)
       response = HTTP.use(:auto_inflate).headers(HEADERS).get(url)
-      handle_response response, html: html
+      handle_response response, response_type: response_type
     end
 
     def self.post(url, json)
@@ -19,18 +19,24 @@ class ThirteenF
       handle_response response
     end
 
-    def self.handle_response(response, html: false)
+    def self.handle_response(response, response_type: :json)
       case response.status
       when 200, 201, 202, 203, 204, 206
-        if html
-          Nokogiri::HTML response.to_s
-        else
-          JSON.parse response.to_s, symbolize_names: true
-        end
+        handle_response_type response.to_s, response_type
       else
-        p response.to_s
         raise "Request failed with response #{response.status}, request url: #{response.uri.to_s}"
-        false
+      end
+    end
+
+    def self.handle_response_type(body, response_type)
+      case response_type
+      when :html
+        Nokogiri::HTML body
+      when :json
+        JSON.parse body, symbolize_names: true
+      when :xml
+        xml_doc = Nokogiri::XML body
+        xml_doc.remove_namespaces!
       end
     end
   end

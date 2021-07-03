@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'thirteen_f/sec_request'
-
 class ThirteenF
   class Search
     attr_reader :results, :search_params

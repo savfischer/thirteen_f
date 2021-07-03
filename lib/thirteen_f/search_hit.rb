@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'thirteen_f/sec_request'
-
 class ThirteenF
   class SearchHit
     attr_reader :cik, :name, :entity
