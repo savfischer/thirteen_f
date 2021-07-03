@@ -6,12 +6,12 @@ class ThirteenF
 
     SEARCH_URL = 'https://efts.sec.gov/LATEST/search-index'
 
-    def initialize(search_string, count: 100)
+    def initialize(search_string)
       @search_params = [SEARCH_URL, { keysTyped: search_string, narrow: true }]
     end
 
     def get_results
-      response = SecRequest.post *search_params
+      response = SecRequest.post(*search_params)
       @results = configure_search_results response
       true
     end

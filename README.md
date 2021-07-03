@@ -53,8 +53,8 @@ cik_number = '0001061768'
 entity = ThirteenF::Entity.from_cik cik_number
 
 entity.most_recent_filing
-entity.get_most_recent_holdings
-entity.most_recent_holdings # returns positions from the most recent 13F filing
+entity.get_most_recent_positions
+entity.most_recent_positions # returns positions from the most recent 13F filing
 
 entity.cik # type: String | ex: "0001067983"
 entity.name # type: String | ex: "BERKSHIRE HATHAWAY INC"

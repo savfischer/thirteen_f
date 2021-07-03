@@ -8,7 +8,7 @@ class ThirteenF
       :sic, :sic_description,
       :fiscal_year_end,
       :business_state_or_country,
-      :filings, :most_recent_holdings
+      :filings, :most_recent_positions
 
     BASE_URL = 'https://www.sec.gov'
 
@@ -35,20 +35,14 @@ class ThirteenF
       Time.strptime(@fiscal_year_end, '%m%d').strftime('%B %d')
     end
 
-    def get_most_recent_holdings
-      get_filings unless filings
+    def get_most_recent_positions
       most_recent_filing.get_positions
-      @most_recent_holdings =  most_recent_filing.positions
+      @most_recent_positions =  most_recent_filing.positions
       true
     end
 
     def most_recent_filing
       filings.select(&:period_of_report).max_by(&:period_of_report)
-    end
-
-    def get_filings(count: 10)
-      @filings = Filing.from_index_urls thirteen_f_urls(count: count), self
-      true
     end
 
     def sec_filings_page_url

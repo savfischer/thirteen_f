@@ -4,7 +4,7 @@ require 'date'
 
 class ThirteenF
   class Filing
-    attr_reader :entity, :index_url, :report_date, :time_accepted,
+    attr_reader :entity, :index_url, :report_date, :time_accepted, :form_type,
       :table_html_url, :table_xml_url,
       :cover_page_html_url, :cover_page_xml_url, :complete_text_file_url,
       :positions
@@ -12,12 +12,6 @@ class ThirteenF
     alias period_of_report report_date
 
     BASE_URL = 'https://www.sec.gov'
-
-    def set_attributes_from_index_url
-      return unless index_url
-      response = SecRequest.get index_url, response_type: :html
-      assign_attributes  **set_attributes(response)
-    end
 
     def initialize(entity, columnar_data)
       @entity = entity
@@ -33,9 +27,15 @@ class ThirteenF
     end
 
     def get_positions
-      return false unless period_of_report
+      set_attributes_from_index_url unless table_xml_url
       @positions = Position.from_xml_filing self
       true
+    end
+
+    def set_attributes_from_index_url
+      return unless index_url
+      response = SecRequest.get index_url, response_type: :html
+      assign_attributes(**set_attributes(response))
     end
 
     private
