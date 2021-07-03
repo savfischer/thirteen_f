@@ -99,6 +99,15 @@ position.other_managers # type: String or nil | ex: "1,4,11"
 position.voting_authority # type: Hash | ex: { sole: 19994970, shared: 0, none: 0 }
 ```
 
+### Net Securities
+```ruby
+```
+
+### CUSIP Securities
+
+```ruby
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run
