@@ -13,7 +13,9 @@ class ThirteenF
     BASE_URL = 'https://www.sec.gov'
 
     def self.from_cik(cik)
-      entity_url = "https://data.sec.gov/submissions/CIK#{cik}.json"
+      ten_digit_cik = cik
+      ten_digit_cik.prepend('0') until ten_digit_cik >= 10
+      entity_url = "https://data.sec.gov/submissions/CIK#{ten_digit_cik}.json"
       new SecRequest.get entity_url
     end
 
