@@ -47,29 +47,32 @@ class ThirteenF
 
     private
       def cik_from_id(id)
-        id.prepend('0') until id.length >= 10
-        id
+        id.to_i.to_s
       end
+
+      COLUMN_KEYS = %i(
+        accessionNumber
+        filingDate
+        reportDate
+        acceptanceDateTime
+        act
+        form
+        fileNumber
+        filmNumber
+        items
+        size
+        isXBRL
+        isInlineXBRL
+        primaryDocument
+        primaryDocDescription
+      )
 
       def thirteen_f_filing_data(filings_data)
         indexes = thirteen_f_indexes(filings_data)
         indexes.map do |index|
-          columnar_data = [
-            filings_data[:accessionNumber][index],
-            filings_data[:filingDate][index],
-            filings_data[:reportDate][index],
-            filings_data[:acceptanceDateTime][index],
-            filings_data[:act][index],
-            filings_data[:form][index],
-            filings_data[:fileNumber][index],
-            filings_data[:filmNumber][index],
-            filings_data[:items][index],
-            filings_data[:size][index],
-            filings_data[:isXBRL][index],
-            filings_data[:isInlineXBRL][index],
-            filings_data[:primaryDocument][index],
-            filings_data[:primaryDocDescription][index]
-          ]
+          columnar_data = COLUMN_KEYS.map do |key|
+            filings_data[key][index]
+          end
           Filing.new self, columnar_data
         end
       end

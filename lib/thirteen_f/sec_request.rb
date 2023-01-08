@@ -3,19 +3,36 @@ require 'nokogiri'
 
 class ThirteenF
   class SecRequest
-    HEADERS = {
-      'User-Agent' => 'ThirteenF/v0.5.0 (Open Source Ruby Gem)',
+    DATA_HEADERS = {
+      'User-Agent' => 'ThirteenF/v0.5.0 (Open Source Ruby Gem) savannah.fischer@hey.com',
+      'Host' => 'data.sec.gov',
+      'Accept-Encoding' => 'gzip, deflate'
+    }
+
+    WWW_HEADERS = {
+      'User-Agent' => 'ThirteenF/v0.5.0 (Open Source Ruby Gem) savannah.fischer@hey.com',
+      'Host' => 'www.sec.gov'
+    }
+
+    EFTS_HEADERS = {
+      'User-Agent' => 'S Fischer sfischer@fischercompany.com',
       'Accept-Encoding' => 'gzip, deflate',
-      'Accept' => '*/*'
+      'Host' => 'efts.sec.gov'
     }
 
     def self.get(url, response_type: :json)
-      response = HTTP.use(:auto_inflate).headers(HEADERS).get(url)
-      handle_response response, response_type: response_type
+      case response_type
+      when :json
+        response = HTTP.use(:auto_inflate).headers(DATA_HEADERS).get(url)
+        handle_response response, response_type: response_type
+      else
+        response = HTTP.use(:auto_inflate).headers(WWW_HEADERS).get(url)
+        handle_response response, response_type: response_type
+      end
     end
 
     def self.post(url, json)
-      response = HTTP.use(:auto_inflate).headers(HEADERS).post(url, json: json)
+      response = HTTP.use(:auto_inflate).headers(EFTS_HEADERS).post(url, json: json)
       handle_response response
     end
 

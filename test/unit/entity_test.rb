@@ -9,8 +9,8 @@ class EntityTest < MiniTest::Test
     assert @entity.cik.is_a?(String)
   end
 
-  def test_cik_has_length_10
-    assert_equal @entity.cik.length, 10
+  def test_cik_has_no_leading_zeroes
+    assert_equal @entity.cik.to_i.to_s, @entity.cik
   end
 
   def test_name_string

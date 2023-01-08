@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
   different investors have been doing in US regulated equity markets.}
   spec.homepage      = "https://github.com/savfischer/thirteen_f"
   spec.license       = "MIT"
-  spec.required_ruby_version = Gem::Requirement.new(">= 2.6.0")
+  spec.required_ruby_version = Gem::Requirement.new(">= 3.0")
 
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = "https://github.com/savfischer/thirteen_f"
@@ -33,7 +33,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "minitest"
   spec.add_development_dependency "pry"
 
-  spec.add_runtime_dependency "http", ">= 5.0"
-  spec.add_runtime_dependency "nokogiri", ">= 1.10"
-  spec.add_runtime_dependency "pdf-reader", ">= 2.2"
+  spec.add_runtime_dependency "http", ">= 5.1"
+  spec.add_runtime_dependency "nokogiri", ">= 1.13"
+  spec.add_runtime_dependency "pdf-reader", ">= 2.11"
 end
