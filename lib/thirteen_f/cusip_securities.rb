@@ -10,7 +10,7 @@ class ThirteenF
     BASE_URL = 'https://www.sec.gov'
 
     def self.all_file_locations
-      index_url = "#{BASE_URL}/divisions/investment/13flists.htm"
+      index_url = "#{BASE_URL}/divisions/investment/13flists"
       page = SecRequest.get index_url, response_type: :html
       a_tags = page.search('a').select do |a_tag|
         href = a_tag.attributes['href']&.value.to_s
@@ -20,7 +20,7 @@ class ThirteenF
     end
 
     def self.most_recent_list
-      index_url = "#{BASE_URL}/divisions/investment/13flists.htm"
+      index_url = "#{BASE_URL}/divisions/investment/13flists"
       page = SecRequest.get index_url, response_type: :html
       a_tag = page.search('a').find { |a| a.text.include?('Current List') }
       file_location = "#{BASE_URL + a_tag.attributes['href'].value}"
