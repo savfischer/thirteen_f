@@ -14,7 +14,7 @@ class ThirteenF
 
     def self.from_cik(cik)
       ten_digit_cik = cik
-      ten_digit_cik.prepend('0') until ten_digit_cik >= 10
+      ten_digit_cik.prepend('0') until ten_digit_cik.length >= 10
       entity_url = "https://data.sec.gov/submissions/CIK#{ten_digit_cik}.json"
       new SecRequest.get entity_url
     end
