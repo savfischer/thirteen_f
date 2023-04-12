@@ -2,9 +2,9 @@ PATH
   remote: .
   specs:
     thirteen_f (0.5.2)
-      http (>= 5.0)
+      http (>= 5.1)
       nokogiri (>= 1.13)
-      pdf-reader (>= 2.10)
+      pdf-reader (>= 2.11)
 
 GEM
   remote: https://rubygems.org/
@@ -35,7 +35,7 @@ GEM
     method_source (1.0.0)
     mini_portile2 (2.8.1)
     minitest (5.17.0)
-    nokogiri (1.13.10)
+    nokogiri (1.14.3)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     pdf-reader (2.11.0)
