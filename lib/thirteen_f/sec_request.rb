@@ -33,6 +33,8 @@ class ThirteenF
         response = HTTP.use(:auto_inflate).headers(www_headers).get(url)
         handle_response response, response_type: response_type
       end
+    rescue
+      raise "Request failed at this url: #{url} \n With this response #{response.to_s}"
     end
 
     def self.post(url, json)

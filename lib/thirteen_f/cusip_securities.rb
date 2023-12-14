@@ -37,7 +37,11 @@ class ThirteenF
 
     def get_list_entries
       return false unless file_location
-      io = URI.open file_location
+      io = URI.open(
+        file_location, 
+        'User-Agent' => "ThirteenF/v#{::ThirteenF::VERSION} (Open Source Ruby Gem) savannah.fischer@hey.com",
+        'Host' => 'www.sec.gov'
+      )
       reader = PDF::Reader.new io
       valid_entries = []
       reader.pages[2..-1].each do |page|
