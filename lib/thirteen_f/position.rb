@@ -30,7 +30,7 @@ class ThirteenF
       @cusip = info_table.search('cusip').text
       @value_in_thousands = set_value_to_thousands info_table.search('value').text
       @shares_or_principal_amount_type = info_table.search('sshPrnamtType').text
-      @shares_or_principal_amount = to_integer(info_table.search('sshPrnamt').text)
+      @shares_or_principal_amount = to_float(info_table.search('sshPrnamt').text)
 
       not_found = info_table.search('putCall').count == 0
       @put_or_call = info_table.search('putCall').text unless not_found
@@ -38,9 +38,9 @@ class ThirteenF
       @investment_discretion = info_table.search('investmentDiscretion').text
       @other_managers = info_table.search('otherManager').text
       @voting_authority = {
-        sole: to_integer(info_table.search('Sole').text),
-        shared: to_integer(info_table.search('Shared').text),
-        none: to_integer(info_table.search('None').text)
+        sole: to_float(info_table.search('Sole').text),
+        shared: to_float(info_table.search('Shared').text),
+        none: to_float(info_table.search('None').text)
       }
     end
 
@@ -56,13 +56,13 @@ class ThirteenF
       def set_value_to_thousands(text)
         before_change = filing.time_accepted < Date.parse('2023-01-03')
         if before_change
-          to_integer(text)
+          to_float(text)
         else
-          to_integer(text) / 1000
+          to_float(text) / 1000
         end
       end
 
-      def to_integer(text)
+      def to_float(text)
         text.delete(',').to_f
       end
   end

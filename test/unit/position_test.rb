@@ -28,7 +28,7 @@ class PositionTest < Minitest::Test
   end
 
   def test_shares_or_principal_amount_integer
-    assert @position.shares_or_principal_amount.is_a?(Integer)
+    assert @position.shares_or_principal_amount.is_a?(Float)
   end
 
   # this is the default case, since for most investors puts and calls are going
@@ -47,9 +47,9 @@ class PositionTest < Minitest::Test
 
   def test_voting_authority_hash
     assert @position.voting_authority.is_a?(Hash)
-    assert @position.voting_authority[:sole].is_a?(Integer)
-    assert @position.voting_authority[:shared].is_a?(Integer)
-    assert @position.voting_authority[:none].is_a?(Integer)
+    assert @position.voting_authority[:sole].is_a?(Float)
+    assert @position.voting_authority[:shared].is_a?(Float)
+    assert @position.voting_authority[:none].is_a?(Float)
   end
 
   def test_filing_is_filing
