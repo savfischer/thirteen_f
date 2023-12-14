@@ -34,6 +34,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry"
 
   spec.add_runtime_dependency "http", ">= 5.1"
-  spec.add_runtime_dependency "nokogiri", ">= 1.13"
+  spec.add_runtime_dependency "nokogiri", ">= 1.15"
   spec.add_runtime_dependency "pdf-reader", ">= 2.11"
 end

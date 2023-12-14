@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SearchTest < MiniTest::Test
+class SearchTest < Minitest::Test
   def test_search_params_is_array
     s = ThirteenF::Search.new 'Berkshire'
     assert s.search_params.is_a?(Array)

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class FilingTest < MiniTest::Test
+class FilingTest < Minitest::Test
   def setup
     entity = ThirteenF::Entity.from_cik 'test'
     @filing = entity.filings.first

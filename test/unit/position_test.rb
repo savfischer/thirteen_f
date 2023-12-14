@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PositionTest < MiniTest::Test
+class PositionTest < Minitest::Test
   def setup
     entity = ThirteenF::Entity.from_cik 'test'
     entity.get_most_recent_positions
@@ -20,7 +20,7 @@ class PositionTest < MiniTest::Test
   end
 
   def test_value_in_thousands_integer
-    assert @position.value_in_thousands.is_a?(Integer)
+    assert @position.value_in_thousands.is_a?(Float)
   end
 
   def test_shares_or_principal_amount_type_string

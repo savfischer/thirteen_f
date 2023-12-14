@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SearchHitTest < MiniTest::Test
+class SearchHitTest < Minitest::Test
   def setup
     s = ThirteenF::Search.new 'Berkshire'
     s.get_results

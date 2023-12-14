@@ -28,7 +28,7 @@ class ThirteenF
       @name_of_issuer = info_table.search('nameOfIssuer').text
       @title_of_class = info_table.search('titleOfClass').text
       @cusip = info_table.search('cusip').text
-      @value_in_thousands = to_integer(info_table.search('value').text)
+      @value_in_thousands = set_value_to_thousands info_table.search('value').text
       @shares_or_principal_amount_type = info_table.search('sshPrnamtType').text
       @shares_or_principal_amount = to_integer(info_table.search('sshPrnamt').text)
 
@@ -45,8 +45,25 @@ class ThirteenF
     end
 
     private
+      # https://www.sec.gov/divisions/investment/13ffaq#62
+      # Q: When must filers use the updated Form 13F that includes the
+      # amendments that were adopted on June 23, 2022?
+      # A: The compliance date for the form amendments to Form 13F is January 3,
+      # 2023.  All Form 13F reports that are filed on or after January 3, 2023,
+      # whether public or confidential (including all Form 13F reports for the
+      # quarter ending December 31, 2022, and for any other preceding or
+      # succeeding calendar quarter), must use the updated Form 13F.
+      def set_value_to_thousands(text)
+        before_change = filing.time_accepted < Date.parse('2023-01-03')
+        if before_change
+          to_integer(text)
+        else
+          to_integer(text) / 1000
+        end
+      end
+
       def to_integer(text)
-        text.delete(',').to_i
+        text.delete(',').to_f
       end
   end
 end

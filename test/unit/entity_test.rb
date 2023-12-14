@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class EntityTest < MiniTest::Test
+class EntityTest < Minitest::Test
   def setup
     @entity = ThirteenF::Entity.from_cik 'test'
   end
